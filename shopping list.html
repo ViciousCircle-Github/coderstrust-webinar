@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lista zakupów</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="offset-4">
+            <h1>Lista zakupów: <span id="counter"></span></h1>
+            <ul class="list-group col-5">
+                <li class="list-group-item"> <input type="checkbox" style="margin-right: 10px;" /> Jabłka</li>
+                <li class="list-group-item"> <input type="checkbox" style="margin-right: 10px;" /> Pomarańcze</li>
+                <li class="list-group-item"> <input type="checkbox" style="margin-right: 10px;" /> Goździki</li>
+            </ul>
+            <div id="newItemButton"><button href="#" id="showForm" class="btn btn-success">new item</button></div>
+            <form id="newItemForm">
+                <input type="text" id="itemDescription" placeholder="Wpisz elemnt" style="display: inline-block;" class="form-control col-5" />
+                <input type="submit" id="add" value="add!" class="btn btn-success" />
+            </form>
+        </div>
+    </div>
+
+    <script>
+        $(function() {
+
+
+            var $list, $newItemForm, $newItemButton;
+            var item = ''; 
+            $list = $('ul'); 
+            $newItemForm = $('#newItemForm'); 
+            $newItemButton = $('#newItemButton'); 
+
+            $('li').hide().each(function(index) { 
+                $(this).delay(450 * index).fadeIn(1600); 
+            });
+
+            
+            function updateCount() { 
+                var items = $('li[class!=complete]').length; 
+                $('#counter').text(items); 
+            }
+            updateCount(); 
+
+            
+            $newItemButton.show(); 
+            $newItemForm.hide(); 
+            $('#showForm').on('click', function() { 
+                $newItemButton.hide(); 
+                $newItemForm.show(); 
+            });
+
+            
+            $newItemForm.on('submit', function(e) { 
+                e.preventDefault(); 
+                var text = $('input:text').val(); 
+                $list.append('<li class="list-group-item"> <input type="checkbox" style="margin-right: 10px;" />' + text + '</li>'); 
+                $('input:text').val(''); 
+                updateCount(); 
+            });
+
+
+        });
+
+    </script>
+
+</body>
+
+</html>
